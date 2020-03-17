@@ -4,7 +4,7 @@ inputs:
   cmd:
     description: 'The command that should be run'
     required: true
-  working_dir:
+  working_directory:
     description: "This is where the helm command will be run from"
 runs:
   using: 'docker'
