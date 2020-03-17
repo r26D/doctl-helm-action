@@ -7,6 +7,6 @@ inputs:
 runs:
   using: 'docker'
   #image: 'Dockerfile'
-  image: "docker://docker.pkg.github.com/r26d/doctl-helm-action/doctl-helm-action:latest"
+  image: "docker://doctl-helm-action:latest"
   args:
     - ${{ inputs.cmd }}
