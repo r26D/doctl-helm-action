@@ -6,6 +6,7 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  #image: 'Dockerfile'
+  image: "docker://docker.pkg.github.com/r26d/doctl-helm-action/doctl-helm-action:latest"
   args:
     - ${{ inputs.cmd }}
