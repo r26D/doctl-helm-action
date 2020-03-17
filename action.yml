@@ -12,4 +12,4 @@ runs:
   image: "docker://delmendo/doctl-helm-action:latest"
   args:
     - ${{ inputs.cmd }}
-    - ${{ inputs.working_dir }}
+    - ${{ inputs.working_directory }}
