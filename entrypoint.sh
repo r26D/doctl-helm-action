@@ -18,6 +18,7 @@ if [[ -z "${2}" ]]; then
 else
   cd $2
 fi
+echo "The second argument was ${2}"
 PWD=$(pwd)
 echo "Working Dir: ${PWD}"
 echo "$1"
