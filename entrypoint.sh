@@ -10,8 +10,15 @@ if [[ -z "${DIGITALOCEAN_K8S_CLUSTER_NAME}" ]]; then
      echo "DIGITALOCEAN_K8S_CLUSTER_NAME missing!"
     exit 127
 fi
+
 doctl auth init -t ${DIGITALOCEAN_ACCESS_TOKEN}
 doctl kubernetes cluster kubeconfig save ${DIGITALOCEAN_K8S_CLUSTER_NAME}
-
+if [[ -z "${2}" ]]; then
+  echo ""
+else
+  cd $2
+fi
+PWD=$(pwd)
+echo "Working Dir: ${PWD}"
 echo "$1"
 eval $1
