@@ -47,6 +47,8 @@ else
   echo "Working on the  ${DIGITALOCEAN_K8S_NAMESPACE} namespace"
 
 fi
+#Forcing the plugin to load
+helm plugin install https://github.com/futuresimple/helm-secrets
 
 kubectl version
 helm version

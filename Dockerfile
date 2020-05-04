@@ -30,12 +30,14 @@ RUN wget -q https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/s
 #RUN chmod +x /usr/local/bin/kubectl
 RUN wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
-# Add in helm secrets
-RUN  /usr/local/bin/helm plugin install https://github.com/futuresimple/helm-secrets
+
 #Doctl - based on work by Aron Wolf
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 && \
   curl -L https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz  | tar xz && \
   cp doctl /bin/
+# Add in helm secrets
+RUN  /usr/local/bin/helm plugin install https://github.com/futuresimple/helm-secrets
+
 
 #WORKDIR /config
 COPY sops_test_files /sops_test_files
