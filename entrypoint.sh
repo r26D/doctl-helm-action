@@ -11,10 +11,10 @@ if [[ -z "${DIGITALOCEAN_K8S_CLUSTER_NAME}" ]]; then
   echo "DIGITALOCEAN_K8S_CLUSTER_NAME missing!"
   exit 127
 fi
-if [[ -z "${DIGITALOCEAN_K8S_CLUSTER_NAME}" ]]; then
-  echo "DIGITALOCEAN_K8S_CLUSTER_NAME missing!"
-  exit 127
+if [[ -z "${DIGITALOCEAN_K8S_NAMESPACE}" ]]; then
+  DIGITALOCEAN_K8S_NAMESPACE="default"
 fi
+
 if [[ -z "${SECRETS_GPG_KEY}" ]]; then
   echo "NO GPG key provided for secrets"
 else
@@ -37,6 +37,17 @@ fi
 
 doctl auth init -t ${DIGITALOCEAN_ACCESS_TOKEN}
 doctl kubernetes cluster kubeconfig save ${DIGITALOCEAN_K8S_CLUSTER_NAME}
+
+if [[ -z "${DIGITALOCEAN_K8S_NAMESPACE}" ]]; then
+  echo "Working in the default namespace"
+else
+  CURRENT_CONTEXT=$(kubectl config current-context)
+  kubectl config set-context --current --namespace=${DIGITALOCEAN_K8S_NAMESPACE}
+  kubectl config use-context ${CURRENT_CONTEXT}
+  echo "Working on the  ${DIGITALOCEAN_K8S_NAMESPACE} namespace"
+
+fi
+
 if [[ -z "${2}" ]]; then
   echo ""
 else

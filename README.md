@@ -14,6 +14,12 @@ It is required to talk to Digital Ocean
 #### DIGITALOCEAN_K8S_CLUSTER_NAME
 ** REQUIRED ** - this specifies whick kubernetes cluster the command should be used.
 
+#### DIGITALOCEAN_K8S_NAMESPACE
+Optional - if left blank - the actions will happen in the "default" context.  If you set a namespace
+a new context will be created with the namespace and used for all helm operations (Helm 3 cares about the
+context namespace for some operations)
+
+
 ### SECRETS_GPG_KEY
 Optional - this is the private key used to encrypt any secrets in the project.  If you aren't using
 helm secrets - then you don't have to set this.
