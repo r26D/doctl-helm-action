@@ -1,5 +1,6 @@
 #!/bin/sh -l
 set -e
+
 #Confirm that there is a Digital Ocean Access Token
 #Confirm that there is a cluster name
 if [[ -z "${DIGITALOCEAN_ACCESS_TOKEN}" ]]; then
