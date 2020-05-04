@@ -1,23 +1,48 @@
-# Hello world docker action
+# doctl-helm-action
 
-This action prints "Hello World" to the log or "Hello" + the name of a person to greet. To learn how this action was built, see "[Creating a Docker container action](https://help.github.com/en/articles/creating-a-docker-container-action)" in the GitHub Help documentation.
+This action allows you to talk to DigitalOcean's doctl. It also includes helm and helm secrets support.
+
 
 ## Inputs
 
-### `who-to-greet`
+### env
 
-**Required** The name of the person to greet. Default `"World"`.
+####  DIGITALOCEAN_ACCESS_TOKEN
+** REQUIRED **  - This is the access token [[https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/]]
+It is required to talk to Digital Ocean
 
-## Outputs
+#### DIGITALOCEAN_K8S_CLUSTER_NAME
+** REQUIRED ** - this specifies whick kubernetes cluster the command should be used.
 
-### `time`
+### SECRETS_GPG_KEY
+Optional - this is the private key used to encrypt any secrets in the project.  If you aren't using
+helm secrets - then you don't have to set this.
 
-The time we greeted you.
+### SECRETS_GPG_PASSPHRASE
+Optional - this is the passphrase used on the gpg private key. If you aren't providing a GPG key or if
+it doesn't have a passphrase you don't have to set this.
+
+
+### with
+
+#### working directory 
+Optional - This is where the command will be run from
+#### cmd
+** Required ** - This is the command you want run. 
+
 
 ## Example usage
 
 ```yaml
-uses: actions/hello-world-docker-action@master
-with:
-  who-to-greet: 'Mona the Octocat'
+      - name: Helm Process
+        uses: r26d/doctl-helm-action@v1.9.0
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          DIGITALOCEAN_K8S_CLUSTER_NAME: ${{ secrets.DIGITALOCEAN_K8S_CLUSTER}}
+          SECRETS_GPG_KEY: ${{ secrets.SECRETS_GPG_KEY}}
+          SECRETS_GPG_PASSPHRASE: ${{ secrets.SECRETS_GPG_PASSPHRASE}}
+        with:
+          working_directory: /github/workspace/k8s
+          cmd: helm secrets upgrade --install  prod_values.yaml  prod my_chart
+  
 ```

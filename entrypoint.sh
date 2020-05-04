@@ -3,12 +3,35 @@ set -e
 #Confirm that there is a Digital Ocean Access Token
 #Confirm that there is a cluster name
 if [[ -z "${DIGITALOCEAN_ACCESS_TOKEN}" ]]; then
-    echo "DIGITALOCEAN_ACCESS_TOKEN missing!"
-    exit 127
+  echo "DIGITALOCEAN_ACCESS_TOKEN missing!"
+  exit 127
 fi
 if [[ -z "${DIGITALOCEAN_K8S_CLUSTER_NAME}" ]]; then
-     echo "DIGITALOCEAN_K8S_CLUSTER_NAME missing!"
-    exit 127
+  echo "DIGITALOCEAN_K8S_CLUSTER_NAME missing!"
+  exit 127
+fi
+if [[ -z "${DIGITALOCEAN_K8S_CLUSTER_NAME}" ]]; then
+  echo "DIGITALOCEAN_K8S_CLUSTER_NAME missing!"
+  exit 127
+fi
+if [[ -z "${SECRETS_GPG_KEY}" ]]; then
+  echo "NO GPG key provided for secrets"
+else
+  echo 'Importing a gpg key for secrets'
+  echo "${SECRETS_GPG_KEY}" >/tmp/private.key
+  if [[ -z "${SECRETS_GPG_PASSPHRASE}" ]]; then
+    gpg --import /tmp/private.key
+  else
+    #https://github.com/mozilla/sops/issues/370
+    #Sops needs the key loaded into the gpg agent with the password already sorted
+    echo "${SECRETS_GPG_PASSPHRASE}" | gpg --batch --import jobward.private.key
+    echo "${SECRETS_GPG_PASSPHRASE}" >/tmp/private_passphrase.txt
+    touch /tmp/dummy.txt
+    echo "Importing with passphrase"
+    gpg --batch --yes --passphrase-file /tmp/private_passphrase.txt --pinentry-mode=loopback -s /tmp/dummy.txt
+    rm -f /tmp/dummy.txt /tmp/private_passphrase.txt
+  fi
+  rm -f /tmp/private.key
 fi
 
 doctl auth init -t ${DIGITALOCEAN_ACCESS_TOKEN}

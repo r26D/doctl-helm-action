@@ -17,8 +17,6 @@ ENV DOCTL_VERSION="1.43.0"
 #https://github.com/mozilla/sops/releases
 ENV SOPS_VERSION="3.5.0"
 
-https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux
-
 
 RUN apk add --no-cache ca-certificates bash git openssh curl gnupg
 
@@ -40,6 +38,6 @@ RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
   cp doctl /bin/
 
 #WORKDIR /config
-
+COPY sops_test_files /sops_test_files
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
