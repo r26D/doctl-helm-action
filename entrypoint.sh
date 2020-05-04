@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash -l
 set -e
 
 #Confirm that there is a Digital Ocean Access Token
