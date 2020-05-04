@@ -48,6 +48,10 @@ else
 
 fi
 
+kubectl version
+helm version
+helm plugin list
+
 if [[ -z "${2}" ]]; then
   echo ""
 else
