@@ -25,7 +25,7 @@ else
   else
     #https://github.com/mozilla/sops/issues/370
     #Sops needs the key loaded into the gpg agent with the password already sorted
-    echo "${SECRETS_GPG_PASSPHRASE}" | gpg --batch --import jobward.private.key
+    echo "${SECRETS_GPG_PASSPHRASE}" | gpg --batch --import private.key
     echo "${SECRETS_GPG_PASSPHRASE}" >/tmp/private_passphrase.txt
     touch /tmp/dummy.txt
     echo "Importing with passphrase"
