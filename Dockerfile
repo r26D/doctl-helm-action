@@ -11,11 +11,11 @@ ENV DO_KUBE_VERSION="v1.16.6"
 ENV HELM_VERSION="v3.2.0"
 #Latest verson of doctl can be found at:
 #https://github.com/digitalocean/doctl/releases
-ENV DOCTL_VERSION="1.43.0"
+ENV DOCTL_VERSION="1.48.1"
 # Sops is used to handle the decryption of secrets by helm secerts
 #Version can be found at
 #https://github.com/mozilla/sops/releases
-ENV SOPS_VERSION="3.5.0"
+ENV SOPS_VERSION="3.6.1"
 
 
 RUN apk add --no-cache ca-certificates bash git openssh curl gnupg
