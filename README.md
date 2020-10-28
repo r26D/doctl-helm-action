@@ -41,7 +41,7 @@ Optional - This is where the command will be run from
 
 ```yaml
       - name: Helm Process
-        uses: r26d/doctl-helm-action@v1.9.0
+        uses: r26d/doctl-helm-action@v1.10.0
         env:
           DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           DIGITALOCEAN_K8S_CLUSTER_NAME: ${{ secrets.DIGITALOCEAN_K8S_CLUSTER}}
