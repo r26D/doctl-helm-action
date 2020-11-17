@@ -55,6 +55,7 @@ else
   helm plugin install https://github.com/futuresimple/helm-secrets
 fi
 
+echo "=== K8s Environment ==="
 kubectl version
 helm version
 helm plugin list
