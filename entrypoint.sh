@@ -48,8 +48,8 @@ else
 
 fi
 #Forcing the plugin to load
-#Forcing the plugin to load
-if $(helm plugin list) | grep -q "secrets"; then
+OUTPUT=$(helm plugin list)
+if echo "$OUTPUT" | grep -q "secrets"; then
     echo "secrets already plugin installed"
 else
   helm plugin install https://github.com/futuresimple/helm-secrets
