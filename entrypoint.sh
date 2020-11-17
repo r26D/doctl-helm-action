@@ -48,7 +48,12 @@ else
 
 fi
 #Forcing the plugin to load
-helm plugin install https://github.com/futuresimple/helm-secrets
+#Forcing the plugin to load
+if $(helm plugin list) | grep -q "secrets"; then
+    echo "secrets already plugin installed"
+else
+  helm plugin install https://github.com/futuresimple/helm-secrets
+fi
 
 kubectl version
 helm version
