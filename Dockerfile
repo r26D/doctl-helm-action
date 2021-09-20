@@ -1,5 +1,5 @@
 #This docker file was based on one from LICENSE.DavidTesar
-FROM alpine:3.11
+FROM alpine:3.14
 
 # Note: Latest version of kubectl may be found at:
 # https://github.com/kubernetes/kubernetes/releases
