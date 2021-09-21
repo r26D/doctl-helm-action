@@ -20,7 +20,8 @@ ENV SOPS_VERSION="3.7.1"
 ENV HELM_SECRETS_VERSION="3.8.3"
 
 
-RUN apk add --no-cache ca-certificates bash git openssh curl gnupg
+RUN apk add --no-cache ca-certificates bash git openssh curl gnupg && \
+    apk add --no-cache --upgrade grep
 
 #Helm and Kubernetes
 #Kubectl  was having network problems - so moved it into the repo
