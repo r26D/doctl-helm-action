@@ -16,6 +16,8 @@ ENV DOCTL_VERSION="1.64.0"
 #Version can be found at
 #https://github.com/mozilla/sops/releases
 ENV SOPS_VERSION="3.7.1"
+#https://github.com/jkroepke/helm-secrets
+ENV HELM_SECRETS_VERSION="3.8.3"
 
 
 RUN apk add --no-cache ca-certificates bash git openssh curl gnupg
@@ -36,7 +38,7 @@ RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
   curl -L https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz  | tar xz && \
   cp doctl /bin/
 # Add in helm secrets
-RUN  /usr/local/bin/helm plugin install https://github.com/futuresimple/helm-secrets
+RUN /usr/local/bin/helm plugin install https://github.com/jkroepke/helm-secrets --version v${HELM_SECRETS_VERSION}
 
 
 #WORKDIR /config
