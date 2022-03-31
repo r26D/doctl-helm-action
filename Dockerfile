@@ -5,13 +5,13 @@ FROM alpine:3.14
 # https://github.com/kubernetes/kubernetes/releases
 # THe version used at Digital Ocean lags - 
 # It can be found at https://www.digitalocean.com/docs/kubernetes/changelog/
-ENV DO_KUBE_VERSION="v1.20.8"
+ENV DO_KUBE_VERSION="v1.22.7"
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="v3.7.0"
+ENV HELM_VERSION="v3.8.1"
 #Latest verson of doctl can be found at:
 #https://github.com/digitalocean/doctl/releases
-ENV DOCTL_VERSION="1.64.0"
+ENV DOCTL_VERSION="1.72.0"
 # Sops is used to handle the decryption of secrets by helm secerts
 #Version can be found at
 #https://github.com/mozilla/sops/releases
