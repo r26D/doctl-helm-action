@@ -15,9 +15,9 @@ ENV DOCTL_VERSION="1.72.0"
 # Sops is used to handle the decryption of secrets by helm secerts
 #Version can be found at
 #https://github.com/mozilla/sops/releases
-ENV SOPS_VERSION="3.7.1"
+ENV SOPS_VERSION="3.7.2"
 #https://github.com/jkroepke/helm-secrets
-ENV HELM_SECRETS_VERSION="3.8.3"
+ENV HELM_SECRETS_VERSION="3.12.0"
 
 
 RUN apk add --no-cache ca-certificates bash git openssh curl gnupg && \
