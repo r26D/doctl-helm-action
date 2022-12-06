@@ -52,7 +52,9 @@ OUTPUT=$(helm plugin list)
 if echo "$OUTPUT" | grep -q "secrets"; then
     echo "secrets already plugin installed"
 else
-  helm plugin install https://github.com/futuresimple/helm-secrets
+ # helm plugin install https://github.com/futuresimple/helm-secrets
+ echo "Need to install helm secrets for this to work"
+ exit 1
 fi
 
 echo "=== K8s Environment ==="
@@ -68,5 +70,31 @@ fi
 echo "The second argument was ${2}"
 PWD=$(pwd)
 echo "Working Dir: ${PWD}"
-echo "$1"
-eval $1
+#https://www.baeldung.com/linux/shell-retry-failed-command
+max_iteration=3
+
+for i in $(seq 1 $max_iteration)
+do
+  echo "$1"
+  echo "Attempt ${i}"
+  eval $1
+  result=$?
+  if [[ $result -eq 0 ]]
+  then
+    echo "Result successful"
+    break
+  else
+    echo "Result unsuccessful"
+    echo "Sleeping for 30 seconds"
+    sleep 30
+  fi
+done
+
+if [[ $result -ne 0 ]]
+then
+  echo "All of the attempts  failed!!!"
+  exit 127
+fi
+
+
+
