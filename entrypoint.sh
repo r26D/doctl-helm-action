@@ -47,9 +47,17 @@ else
   echo "Working on the  ${DIGITALOCEAN_K8S_NAMESPACE} namespace"
 
 fi
+echo "=== K8s Environment ==="
+kubectl version
+helm version
+helm plugin list
+
+echo "The second argument was ${2}"
+PWD=$(pwd)
+echo "Working Dir: ${PWD}"
 #Forcing the plugin to load
 OUTPUT=$(helm plugin list)
-if echo "$OUTPUT" | grep -q "secrets"; then
+if echo "${OUTPUT}" | grep -q "secrets"; then
     echo "secrets already plugin installed"
 else
  # This should be covered by the Dockerfile
@@ -57,19 +65,11 @@ else
  exit 1
 fi
 
-echo "=== K8s Environment ==="
-kubectl version
-helm version
-helm plugin list
-
 if [[ -z "${2}" ]]; then
   echo ""
 else
   cd $2
 fi
-echo "The second argument was ${2}"
-PWD=$(pwd)
-echo "Working Dir: ${PWD}"
 #https://www.baeldung.com/linux/shell-retry-failed-command
 max_iteration=3
 
