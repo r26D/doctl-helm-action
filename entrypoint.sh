@@ -49,7 +49,9 @@ else
 fi
 echo "=== K8s Environment ==="
 kubectl version
+echo "Helm Version"
 helm version
+echo "Plugins"
 helm plugin list
 
 echo "The second argument was ${2}"
