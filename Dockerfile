@@ -1,23 +1,23 @@
 #This docker file was based on one from LICENSE.DavidTesar
-FROM alpine:3.17
+FROM alpine:3.18
 
 # Note: Latest version of kubectl may be found at:
 # https://github.com/kubernetes/kubernetes/releases
 # THe version used at Digital Ocean lags - 
 # It can be found at https://www.digitalocean.com/docs/kubernetes/changelog/
-ENV DO_KUBE_VERSION="v1.25.4"
+ENV DO_KUBE_VERSION="v1.16.9"
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="v3.10.2"
+ENV HELM_VERSION="v3.13.2"
 #Latest verson of doctl can be found at:
 #https://github.com/digitalocean/doctl/releases
-ENV DOCTL_VERSION="1.88.0"
+ENV DOCTL_VERSION="1.100.0"
 # Sops is used to handle the decryption of secrets by helm secerts
 #Version can be found at
 #https://github.com/mozilla/sops/releases
-ENV SOPS_VERSION="3.7.3"
+ENV SOPS_VERSION="3.8.1"
 #https://github.com/jkroepke/helm-secrets
-ENV HELM_SECRETS_VERSION="3.15.0"
+ENV HELM_SECRETS_VERSION="4.5.1"
 
 
 RUN apk add --no-cache ca-certificates bash git openssh curl gnupg && \
