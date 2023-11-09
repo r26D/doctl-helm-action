@@ -18,6 +18,9 @@ ENV DOCTL_VERSION="1.100.0"
 ENV SOPS_VERSION="3.8.1"
 #https://github.com/jkroepke/helm-secrets
 ENV HELM_SECRETS_VERSION="4.5.1"
+#https://github.com/Praqma/helmsman/issues/518#issuecomment-1151581275
+#The PLUGINS directory gets unset and breaks the scripts later
+ENV HELM_PLUGINS="/root/.local/share/helm/plugins"
 
 
 RUN apk add --no-cache ca-certificates bash git openssh curl gnupg && \
