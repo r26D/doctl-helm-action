@@ -27,7 +27,7 @@ RUN apk add --no-cache ca-certificates bash git openssh curl gnupg && \
 #Kubectl  was having network problems - so moved it into the repo
 RUN wget -q https://storage.googleapis.com/kubernetes-release/release/${DO_KUBE_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
-RUN wget -q https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux -O /usr/local/bin/sops \
+RUN wget -q https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
     && chmod +x /usr/local/bin/sops
 #COPY kubectl.${DO_KUBE_VERSION} /usr/local/bin/kubectl
 #RUN chmod +x /usr/local/bin/kubectl
