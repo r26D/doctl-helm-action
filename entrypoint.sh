@@ -52,7 +52,7 @@ OUTPUT=$(helm plugin list)
 if echo "$OUTPUT" | grep -q "secrets"; then
     echo "secrets already plugin installed"
 else
- # helm plugin install https://github.com/futuresimple/helm-secrets
+ # This should be covered by the Dockerfile
  echo "Need to install helm secrets for this to work"
  exit 1
 fi
