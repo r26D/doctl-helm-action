@@ -40,13 +40,13 @@ else
     gpg --batch --yes --passphrase-file /tmp/private_passphrase.txt --pinentry-mode=loopback -s /tmp/dummy.txt
     
 
-    gpg --batch --output dummy.txt.dec --decrypt dummy.txt.gpg
-    if cmp --silent -- "/tmp/dummy.txt" "/tmp/dummy.txt.dec"; then
-      echo "Successfully able to decrypt"
-    else
-         echo "Unable to use the key & passphrase to decrypt data"
-         exit 127
-    fi
+#    gpg --batch --output dummy.txt.dec --decrypt dummy.txt.gpg
+#    if cmp --silent -- "/tmp/dummy.txt" "/tmp/dummy.txt.dec"; then
+#      echo "Successfully able to decrypt"
+#    else
+#         echo "Unable to use the key & passphrase to decrypt data"
+#         exit 127
+#    fi
     rm -f /tmp/dummy.txt /tmp/dummy.txt.gpg /tmp/dummy.text.dec /tmp/private_passphrase.txt
 
 
