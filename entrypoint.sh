@@ -98,9 +98,9 @@ max_iteration="${INPUT_NUMBER_OF_RETRIES:-3}"
 helm_timeout="${INPUT_HELM_TIMEOUT:-120}"
 for i in $(seq 1 $max_iteration)
 do
-  echo "$1"
+  echo "timeout ${helm_timeout}  ${1}"
   echo "Attempt ${i}"
-  timeout $helm_timeout eval $1
+  eval timeout $helm_timeout  $1
   result=$?
   if [[ $result -eq 0 ]]
   then
