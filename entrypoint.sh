@@ -30,7 +30,7 @@ else
     echo "${SECRETS_GPG_PASSPHRASE}" > /tmp/private_passphrase.txt
     #Auto Trusting
     #https://stackoverflow.com/a/70495250
-    KEY_ID=$(gpg --list-packets /tmp/private.key | awk '/keyid:/{ print $2 }' | head -1)
+    KEY_ID=$(gpg --batch --list-packets /tmp/private.key | awk '/keyid:/{ print $2 }' | head -1)
     echo "${SECRETS_GPG_PASSPHRASE}" | gpg --batch --import /tmp/private.key
     (echo trust &echo 5 &echo y &echo quit) | gpg  --command-fd 0 --status-fd=1 --edit-key $KEY_ID
     gpg --batch --update-trustdb
