@@ -21,16 +21,36 @@ else
   echo 'Importing a gpg key for secrets'
   echo "${SECRETS_GPG_KEY}" >/tmp/private.key
   if [[ -z "${SECRETS_GPG_PASSPHRASE}" ]]; then
-    gpg --import /tmp/private.key
+     echo "Private Key Provided - but not able to decrypt because SECRETS_GPG_PASSPHRASE isn't set"
+     exit 127
+   # gpg --import /tmp/private.key
   else
     #https://github.com/mozilla/sops/issues/370
     #Sops needs the key loaded into the gpg agent with the password already sorted
-    echo "${SECRETS_GPG_PASSPHRASE}" | gpg --batch --import /tmp/private.key
     echo "${SECRETS_GPG_PASSPHRASE}" > /tmp/private_passphrase.txt
-    touch /tmp/dummy.txt
+    #Auto Trusting
+    #https://stackoverflow.com/a/70495250
+    KEY_ID=$(gpg --list-packets /tmp/private.key | awk '/keyid:/{ print $2 }' | head -1)
+    echo "${SECRETS_GPG_PASSPHRASE}" | gpg --batch --import /tmp/private.key
+    (echo trust &echo 5 &echo y &echo quit) | gpg --command-fd 0 --edit-key $KEY_ID
+    gpg --update-trustdb
+
+    date > /tmp/dummy.txt
     echo "Importing with passphrase"
     gpg --batch --yes --passphrase-file /tmp/private_passphrase.txt --pinentry-mode=loopback -s /tmp/dummy.txt
-    rm -f /tmp/dummy.txt /tmp/private_passphrase.txt
+    
+
+    gpg --output dummy.txt.dec --decrypt dummy.txt.gpg
+    if cmp --silent -- "/tmp/dummy.txt" "/tmp/dummy.txt.dec"; then
+      echo "Successfully able to decrypt"
+    else
+         echo "Unable to use the key & passphrase to decrypt data"
+         exit 127
+    fi
+    rm -f /tmp/dummy.txt /tmp/dummy.txt.gpg /tmp/dummy.text.dec /tmp/private_passphrase.txt
+
+
+
   fi
   rm -f /tmp/private.key
 fi
@@ -73,13 +93,14 @@ else
   cd $2
 fi
 #https://www.baeldung.com/linux/shell-retry-failed-command
-max_iteration=3
 
+max_iteration="${INPUT_NUMBER_OF_RETRIES:-3}"
+helm_timeout="${INPUT_HELM_TIMEOUT:-120}"
 for i in $(seq 1 $max_iteration)
 do
   echo "$1"
   echo "Attempt ${i}"
-  eval $1
+  timeout $helm_timeout eval $1
   result=$?
   if [[ $result -eq 0 ]]
   then

@@ -6,6 +6,7 @@ This action allows you to talk to DigitalOcean's doctl. It also includes helm an
 ## Inputs
 
 ### env
+    
 
 ####  DIGITALOCEAN_ACCESS_TOKEN
 ** REQUIRED **  - This is the access token [[https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/]]
@@ -28,10 +29,14 @@ helm secrets - then you don't have to set this.
 Optional - this is the passphrase used on the gpg private key. If you aren't providing a GPG key or if
 it doesn't have a passphrase you don't have to set this.
 
+ 
 
 ### with
-
-#### working directory 
+#### number_of_retries
+Optional - this is the number of times to attempt to do the command     - defaults to 3
+#### helm_timeout
+Optional - this is how long helm is given to complete the task before killing the process - defaults to 120 seconds per attempt
+#### working_directory 
 Optional - This is where the command will be run from
 #### cmd
 ** Required ** - This is the command you want run. 

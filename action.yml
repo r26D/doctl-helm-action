@@ -6,6 +6,12 @@ inputs:
     required: true
   working_directory:
     description: "This is where the helm command will be run from"
+  number_of_retries:
+    description: "This the number of attempts the system will use on"
+    default: 3
+  helm_timeout:
+    description: "This is how many seconds to allow the helm process to run before killing it"
+    default: 120
 runs:
   using: 'docker'
   #image: 'Dockerfile'
@@ -13,3 +19,5 @@ runs:
   args:
     - ${{ inputs.cmd }}
     - ${{ inputs.working_directory }}
+    - ${{ inputs.helm_timeout }}
+    - ${{ inputs.number_of_retries }}

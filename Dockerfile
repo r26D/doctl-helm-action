@@ -1,5 +1,5 @@
 #This docker file was based on one from LICENSE.DavidTesar
-FROM alpine:3.18
+FROM debian:bookworm-slim
 
 # Note: Latest version of kubectl may be found at:
 # https://github.com/kubernetes/kubernetes/releases
@@ -21,10 +21,12 @@ ENV HELM_SECRETS_VERSION="4.5.1"
 #https://github.com/Praqma/helmsman/issues/518#issuecomment-1151581275
 #The PLUGINS directory gets unset and breaks the scripts later
 ENV HELM_PLUGINS="/root/.local/share/helm/plugins"
+RUN apt-get update \
+    && apt-get -y dist-upgrade \
+    && apt-get -y install ca-certificates bash git ssh curl gnupg  wget  grep vim
 
 
-RUN apk add --no-cache ca-certificates bash git openssh curl gnupg && \
-    apk add --no-cache --upgrade grep
+
 
 #Helm and Kubernetes
 #Kubectl  was having network problems - so moved it into the repo
@@ -38,8 +40,8 @@ RUN wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | t
     && chmod +x /usr/local/bin/helm
 
 #Doctl - based on work by Aron Wolf
-RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 && \
-  curl -L https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz  | tar xz && \
+#RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 && \
+RUN  curl -L https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz  | tar xz && \
   cp doctl /bin/
 # Add in helm secrets
 RUN /usr/local/bin/helm plugin install https://github.com/jkroepke/helm-secrets --version v${HELM_SECRETS_VERSION}
