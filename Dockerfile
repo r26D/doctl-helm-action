@@ -5,7 +5,9 @@ FROM debian:bookworm-slim
 # https://github.com/kubernetes/kubernetes/releases
 # THe version used at Digital Ocean lags - 
 # It can be found at https://www.digitalocean.com/docs/kubernetes/changelog/
-ENV DO_KUBE_VERSION="v1.29.9"
+#This is acutally talking to google so you have to use thier version
+#https://console.cloud.google.com/storage/browser/kubernetes-release/release/v1.29.8;tab=objects?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&prefix=&forceOnObjectsSortingFiltering=false
+ENV DO_KUBE_VERSION="v1.29.8"
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
 ENV HELM_VERSION="v3.16.3"
