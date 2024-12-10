@@ -15,7 +15,7 @@ inputs:
 runs:
   using: 'docker'
   #image: 'Dockerfile'
-  image: "docker://ghcr.io/r26d/doctl-helm-action/doctl-helm-action:v1.60.0"
+  image: "docker://ghcr.io/r26d/doctl-helm-action/doctl-helm-action:v1.60.1"
   args:
     - ${{ inputs.cmd }}
     - ${{ inputs.working_directory }}
