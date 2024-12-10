@@ -5,7 +5,7 @@ FROM debian:bookworm-slim
 # https://github.com/kubernetes/kubernetes/releases
 # THe version used at Digital Ocean lags - 
 # It can be found at https://www.digitalocean.com/docs/kubernetes/changelog/
-ENV DO_KUBE_VERSION="v1.31.1-do.5"
+ENV DO_KUBE_VERSION="v1.29.9"
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
 ENV HELM_VERSION="v3.16.3"
