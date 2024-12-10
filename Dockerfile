@@ -7,6 +7,7 @@ FROM debian:bookworm-slim
 # It can be found at https://www.digitalocean.com/docs/kubernetes/changelog/
 #This is acutally talking to google so you have to use thier version
 #https://console.cloud.google.com/storage/browser/kubernetes-release/release/v1.29.8;tab=objects?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&prefix=&forceOnObjectsSortingFiltering=false
+#The google version is behind the DO version
 ENV DO_KUBE_VERSION="v1.29.8"
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
