@@ -1,5 +1,6 @@
 #This docker file was based on one from LICENSE.DavidTesar
 FROM debian:trixie-slim
+LABEL org.opencontainers.image.source=https://github.com/r26D/doctl-helm-action
 
 # Note: Latest version of kubectl may be found at:
 # https://github.com/kubernetes/kubernetes/releases
