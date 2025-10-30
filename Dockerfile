@@ -5,21 +5,19 @@ FROM debian:trixie-slim
 # https://github.com/kubernetes/kubernetes/releases
 # THe version used at Digital Ocean lags - 
 # It can be found at https://www.digitalocean.com/docs/kubernetes/changelog/
-#This is acutally talking to google so you have to use thier version
-#https://console.cloud.google.com/storage/browser/kubernetes-release/release/v1.29.8;tab=objects?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&prefix=&forceOnObjectsSortingFiltering=false
 #The google version is behind the DO version
 
-ENV DO_KUBE_VERSION="v1.33.1"
+ENV DO_KUBE_VERSION="1.33.1"
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="v3.19.0"
+ENV HELM_VERSION="3.19.0"
 #Latest verson of doctl can be found at:
 #https://github.com/digitalocean/doctl/releases
 ENV DOCTL_VERSION="1.146.0"
 # Sops is used to handle the decryption of secrets by helm secerts
 #Version can be found at
 #https://github.com/mozilla/sops/releases
-ENV SOPS_VERSION="3.11.1"
+ENV SOPS_VERSION="3.11.0"
 #https://github.com/jkroepke/helm-secrets
 ENV HELM_SECRETS_VERSION="4.6.11"
 #https://github.com/Praqma/helmsman/issues/518#issuecomment-1151581275
@@ -34,13 +32,15 @@ RUN apt-get update \
 
 #Helm and Kubernetes
 #Kubectl  was having network problems - so moved it into the repo
-RUN wget -q https://storage.googleapis.com/kubernetes-release/release/${DO_KUBE_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl \
+
+
+RUN wget -q https://dl.k8s.io/v${DO_KUBE_VERSION}/kubernetes-client-linux-amd64.tar.gz -O - | tar -xzO kubernetes/client/bin/kubectl > /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
-RUN wget -q https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
+RUN wget -q https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64 -O /usr/local/bin/sops \
     && chmod +x /usr/local/bin/sops
 #COPY kubectl.${DO_KUBE_VERSION} /usr/local/bin/kubectl
 #RUN chmod +x /usr/local/bin/kubectl
-RUN wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
+RUN wget -q https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
 
 #Doctl - based on work by Aron Wolf
