@@ -34,7 +34,6 @@ else
     echo "${SECRETS_GPG_PASSPHRASE}" | gpg --batch --import /tmp/private.key
 #    (echo trust &echo 5 &echo y &echo quit) | gpg  --command-fd 0 --status-fd=1 --edit-key $KEY_ID
 #    gpg --batch --update-trustdb
-
     date > /tmp/dummy.txt
     echo "Importing with passphrase"
     gpg --batch --yes --passphrase-file /tmp/private_passphrase.txt --pinentry-mode=loopback -s /tmp/dummy.txt
