@@ -29,6 +29,9 @@ helm secrets - then you don't have to set this.
 Optional - this is the passphrase used on the gpg private key. If you aren't providing a GPG key or if
 it doesn't have a passphrase you don't have to set this.
 
+### SOPS_AGE_KEY
+Optional - this allows you to pass in an AGE Secret that can be used by the helm secrets tool to decrypt things if needed
+
  
 
 ### with
@@ -52,6 +55,7 @@ Optional - This is where the command will be run from
           DIGITALOCEAN_K8S_CLUSTER_NAME: ${{ secrets.DIGITALOCEAN_K8S_CLUSTER}}
           SECRETS_GPG_KEY: ${{ secrets.SECRETS_GPG_KEY}}
           SECRETS_GPG_PASSPHRASE: ${{ secrets.SECRETS_GPG_PASSPHRASE}}
+          SOPS_AGE_KEY: ${{ secrets.AGE_PRIVATE_KEY}}
         with:
           working_directory: /github/workspace/k8s
           cmd: helm secrets upgrade --install  prod_values.yaml  prod my_chart
